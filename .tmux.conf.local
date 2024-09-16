@@ -395,6 +395,7 @@ unbind l
 bind l last-window
 unbind '"'
 unbind %
+unbind s # use tmux-sessionx bindings
 bind _ split-window -h -c "#{pane_current_path}"
 bind - split-window -v -c "#{pane_current_path}"
 
@@ -445,7 +446,7 @@ set -g @plugin 'joshmedeski/tmux-nerd-font-window-name'
 # set -g @plugin 'xamut/tmux-network-bandwidth'
 set -g @plugin 'Alrefai/tmux-network-bandwidth#separator-option'
 set -g @plugin 'omerxx/tmux-sessionx'
-set -g @sessionx-bind 'q'
+set -g @sessionx-bind 's'
 set -g @cpu_percentage_format "%2.0f%%" # Add left padding
 set -g @ram_percentage_format "%2.0f%%" # Add left padding
 set -g @tmux-network-bandwidth-padding 8
