@@ -1,4 +1,4 @@
-# : << EOF
+# : << 'EOF'
 # Oh my tmux!
 # 💛🩷💙🖤❤️🤍
 # https://github.com/gpakosz/.tmux
@@ -207,15 +207,11 @@ tmux_conf_theme_window_status_last_bg="$tmux_conf_theme_colour_black"
 tmux_conf_theme_window_status_last_attr="none"
 
 # status left/right sections separators
+# /!\ you don't need to install Powerline
+# you only need fonts patched with
+# Powerline symbols or the standalone
+# PowerlineSymbols.otf font, see README.md
 tmux_conf_theme_left_separator_main=""
-# tmux_conf_theme_left_separator_sub="|"
-# tmux_conf_theme_right_separator_main=""
-# tmux_conf_theme_right_separator_sub="|"
-#tmux_conf_theme_left_separator_main='\uE0B0'  # /!\ you don't need to install Powerline
-#tmux_conf_theme_left_separator_sub='\uE0B1'   #   you only need fonts patched with
-#tmux_conf_theme_right_separator_main='\uE0B2' #   Powerline symbols or the standalone
-#tmux_conf_theme_right_separator_sub='\uE0B3'  #   PowerlineSymbols.otf font, see README.md
-# tmux_conf_theme_left_separator_main='\uE0BC'
 tmux_conf_theme_left_separator_sub='\uE0BD'
 tmux_conf_theme_right_separator_main="$right_separator_main"
 tmux_conf_theme_right_separator_sub='\uE0BB'
@@ -248,10 +244,7 @@ tmux_conf_theme_right_separator_sub='\uE0BB'
 #     - #{username}
 #     - #{username_ssh}
 tmux_conf_theme_status_left="  #S #[fg=$tmux_conf_theme_colour_black]$right_separator_main"
-#tmux_conf_theme_status_left=" ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} "
-#tmux_conf_theme_status_left=" ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} | #{pretty_pane_current_path} "
 tmux_conf_theme_status_right="#{prefix}#{mouse}#{pairing}#{synchronized}#{online}#{network_bandwidth}  #{cpu_icon}#{cpu_percentage} 󰍛 #{ram_icon}#{ram_percentage} #{?battery_status,#{battery_status},}#{?battery_percentage,#{battery_percentage} ,}| 󱨰 %h %d  %R #{isRemote}"
-#tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized}#{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} "
 
 # status left style
 tmux_conf_theme_status_left_fg="$tmux_conf_theme_colour_mauve,$tmux_conf_theme_colour_black,$tmux_conf_theme_colour_black"
@@ -332,8 +325,6 @@ tmux_conf_battery_vbar_palette="gradient"
 #tmux_conf_battery_vbar_palette="gradient(#00afff,#47a2ff,#7c91ff,#ac7afb,#d65be2,#e163df,#eb6cdd,#f475db,#ec9ff1,#eac3fe,#efe2ff,#ffffff)"
 
 # symbols used to indicate whether battery is charging or discharging
-# tmux_conf_battery_status_charging="↑"       # U+2191
-# tmux_conf_battery_status_discharging="↓"    # U+2193
 tmux_conf_battery_status_charging='󱟧 '
 tmux_conf_battery_status_discharging='󱟥 '
 
@@ -363,8 +354,8 @@ tmux_conf_urlscan_options="--compact --dedupe"
 
 # this is the place to override or undo settings
 
-# Use the xterm-256color terminal
-set -g default-terminal "xterm-256color"
+# Use the xterm-ghostty terminal
+set -g default-terminal "xterm-ghostty"
 
 # Apply Tc
 set-option -ga terminal-overrides ",${TERM}:Tc"
@@ -378,7 +369,7 @@ set -g status-interval 5
 set -g history-limit 100000
 
 # start with mouse mode enabled
-set -g mouse on
+# set -g mouse on
 
 # force Vi mode
 #   really you should export VISUAL or EDITOR environment variable, see manual
@@ -406,24 +397,9 @@ unbind l
 bind l last-window
 unbind '"'
 unbind %
-unbind s # use tmux-sessionx bindings
+# unbind s # use tmux-sessionx bindings
 bind _ split-window -h -c "#{pane_current_path}"
 bind - split-window -v -c "#{pane_current_path}"
-
-# Avoid issues with environment loading when using direnv
-#
-# NOTE: this solution will not revert to the original environment
-# if a direnv-managed folder was entered before invoking tmux.
-#
-# ---
-#
-# references:
-#  - https://github.com/direnv/direnv/wiki/Tmux
-set-option -g update-environment "DIRENV_DIFF DIRENV_DIR DIRENV_WATCHES"
-set-environment -gu DIRENV_DIFF
-set-environment -gu DIRENV_DIR
-set-environment -gu DIRENV_WATCHES
-set-environment -gu DIRENV_LAYOUT
 
 # -- tpm -----------------------------------------------------------------------
 
@@ -439,12 +415,12 @@ set-environment -g TMUX_PLUGIN_MANAGER_PATH "$HOME/.local/share/tmux/plugins"
 # by default, launching tmux will update tpm and all plugins
 #   - true (default)
 #   - false
-tmux_conf_update_plugins_on_launch=false
+tmux_conf_update_plugins_on_launch=true
 
 # by default, reloading the configuration will update tpm and all plugins
 #   - true (default)
 #   - false
-tmux_conf_update_plugins_on_reload=false
+tmux_conf_update_plugins_on_reload=true
 
 # by default, reloading the configuration will uninstall tpm and plugins when no
 # plugins are enabled
@@ -470,9 +446,9 @@ set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-continuum'
 set -g @plugin 'joshmedeski/tmux-nerd-font-window-name'
 # set -g @plugin 'xamut/tmux-network-bandwidth'
-set -g @plugin 'Alrefai/tmux-network-bandwidth#separator-option'
+set -g @plugin 'Alrefai/tmux-network-bandwidth'
 set -g @plugin 'omerxx/tmux-sessionx'
-set -g @sessionx-bind 's'
+set -g @sessionx-bind 'q'
 set -g @cpu_percentage_format "%2.0f%%" # Add left padding
 set -g @ram_percentage_format "%2.0f%%" # Add left padding
 set -g @tmux-network-bandwidth-padding 8
