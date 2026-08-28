@@ -249,7 +249,7 @@ tmux_conf_theme_right_separator_sub='\uE0BB'
 #     - #{username}
 #     - #{username_ssh}
 tmux_conf_theme_status_left="  #S #[fg=$tmux_conf_theme_colour_black]$right_separator_main"
-tmux_conf_theme_status_right="#{prefix}#{mouse}#{pairing}#{synchronized}#{online}#{network_bandwidth}  #{cpu_icon}#{cpu_percentage} 󰍛 #{ram_icon}#{ram_percentage} #{?battery_status,#{battery_status},}#{?battery_percentage,#{battery_percentage} ,}| 󱨰 %h %d  %R #{isRemote}"
+tmux_conf_theme_status_right="#{prefix}#{mouse}#{pairing}#{synchronized}#{online}#{network_bandwidth}  #{cpu_icon}#{cpu_percentage}  #{ram_icon}#{ram_percentage} #{?battery_status,#{battery_status},}#{?battery_percentage,#{battery_percentage} ,}| 󱨰 %h %d  %R #{isRemote}"
 
 # status left style
 tmux_conf_theme_status_left_fg="$tmux_conf_theme_colour_mauve,$tmux_conf_theme_colour_black,$tmux_conf_theme_colour_black"
